@@ -279,6 +279,7 @@ function TrainSchedule(str_station,arrStation,recipientId){
     console.log(url);
     let classname = [];
     let timeoftrain = [];
+    let usetime = [];
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
         $('span[id=classname]').each(function(i,elem){
@@ -287,8 +288,12 @@ function TrainSchedule(str_station,arrStation,recipientId){
         $ = cheerio.load(body);
         $('td[class=SearchResult_Time]').each(function(i,elem){
             timeoftrain[i] = $(this).text();
-            console.log(timeoftrain[i]);
-        })
+        });
+        $ = cheerio.load(body);
+        $('td[style=font-weight:normal;width:80px;]').each(function(i,elem){
+            usetime[i] = $(this).text();
+            console.log(usetime[i]);
+        });
         // $('#ResultGridView tbody tr td .SearchResult_TrainType').each(function(i,elem){
         //     temp.push($(this).text().split('\n'));
         //
