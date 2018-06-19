@@ -281,9 +281,10 @@ function TrainSchedule(str_station,arrStation,recipientId){
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
         $('#ResultGridView tbody tr').each(function(i,elem){
-            temp.push($(this).text().split(' ,'));
-            console.log(temp);
+            temp.push($(this).text().split('\n'));
+
         });
+        console.log(temp);
     //     var train_class;
     //     var str_time;
     //     var arr_time;
