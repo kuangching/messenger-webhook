@@ -282,7 +282,7 @@ function TrainSchedule(str_station,arrStation,recipientId){
         var $ = cheerio.load(body);
         //console.log($('span[id=classname]').text());
         $('span[id=classname]').each(function(i,elem){
-            temp.push($(this).text());
+            temp[i] = $(this).text();
         });
         // $('#ResultGridView tbody tr td .SearchResult_TrainType').each(function(i,elem){
         //     temp.push($(this).text().split('\n'));
