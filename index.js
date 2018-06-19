@@ -240,7 +240,7 @@ function TrainSchedule(str_station,arrStation,sender_psid){
 
     var str_sta,arr_sta;
     var response;
-    var responsestr;
+    var responsestr = '';
     str_sta = station_code(str_station);
     arr_sta = station_code(arrStation);
     var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&fromstation='+str_sta+'&tostation='+arr_sta+'&trainclass=2&timetype=undefined&fromtime='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&totime=2359';
