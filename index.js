@@ -284,6 +284,7 @@ function TrainSchedule(str_station,arrStation,recipientId){
         $('span[id=classname]').each(function(i,elem){
             classname[i] = $(this).text();
         });
+        $ = cheerio.load(body);
         $('td[class=SearchResult_Time]').each(function(i,elem){
             timeoftrain[i] = $(this).text();
             console.log(timeoftrain[i]);
