@@ -262,7 +262,8 @@ function TrainSchedule(str_station,arrStation,sender_psid){
             };
 
         }
-        callSendAPI(sender_psid, response);
+        console.log(response);
+        //callSendAPI(sender_psid, response);
 
     })
 }
