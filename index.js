@@ -277,25 +277,30 @@ function TrainSchedule(str_station,arrStation,recipientId){
     var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate=2019/10/28&fromstation=1319&tostation=1215&trainclass=2&timetype=undefined&fromtime=0000&totime=2359';
     // var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&fromstation='+str_sta+'&tostation='+arr_sta+'&trainclass=2&timetype=undefined&fromtime='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&totime=2359';
     console.log(url);
+    let temp = []
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
-        var train_class;
-        var str_time;
-        var arr_time;
-        var time = $('td.SeachResult_Time');
-        console.log(time);
-        var data = [];
-        for (var i = 0; i< time.length; i+=2){
-            console.log(i);
-            str_time = $($(time[i])).text();
-            console.log(str_time);
-            arr_time = $($(time[i+1])).text();
-            console.log(arr_time);
-            train_class = $($('span[id="xlassname"]')[i/2]).text();
-            data += train_class + ':' + str_time + '->' + arr_time +'\n';
-        }
-        callSendAPI(recipientId, data);
-        return 0;
+        $('#ResultGridView tbody tr').each(function(i,elem){
+            temp.push($(this).text().split('\n'));
+            console.log(temp);
+        });
+    //     var train_class;
+    //     var str_time;
+    //     var arr_time;
+    //     var time = $('td.SeachResult_Time');
+    //     console.log(time);
+    //     var data = [];
+    //     for (var i = 0; i< time.length; i+=2){
+    //         console.log(i);
+    //         str_time = $($(time[i])).text();
+    //         console.log(str_time);
+    //         arr_time = $($(time[i+1])).text();
+    //         console.log(arr_time);
+    //         train_class = $($('span[id="xlassname"]')[i/2]).text();
+    //         data += train_class + ':' + str_time + '->' + arr_time +'\n';
+    //     }
+    //     callSendAPI(recipientId, data);
+    //     return 0;
     })
 }
 function station_code(station_name){
