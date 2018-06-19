@@ -273,7 +273,7 @@ function TrainSchedule(str_station,arrStation,recipientId){
     var str_sta,arr_sta;
     str_sta = station_code(str_station);
     arr_sta = station_code(arrStation);
-    var url = 'http://twtraffic.tra.gov.tw/twrail/TW_SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&fromstation='+str_sta+'&tostation='+arr_sta+'&trainclass=2&timetype=undefined&fromtime='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&totime=2359';
+    var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&fromstation='+str_sta+'&tostation='+arr_sta+'&trainclass=2&timetype=undefined&fromtime='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&totime=2359';
     console.log(url);
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
