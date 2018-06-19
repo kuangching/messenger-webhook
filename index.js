@@ -243,7 +243,7 @@ function TrainSchedule(str_station,arrStation,recipientId){
         ToStation: 1214,
         TrainClass: 2,
         searchdate: moment().format('YYYY-MM-DD'),
-        FromTimeSelect: '0000', //moment().format('HHmm'),
+        FromTimeSelect:  moment().format('HHmm'),
         ToTimeSelect: 2359,
         Timetype: 1
     };
