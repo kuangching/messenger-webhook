@@ -280,7 +280,7 @@ function TrainSchedule(str_station,arrStation,recipientId){
     let temp = []
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
-        console.log($('#classname','tr .Grid_Row').text());
+        console.log($('span[id=classname]').html());
         // $('#ResultGridView tbody tr td .SearchResult_TrainType').each(function(i,elem){
         //     temp.push($(this).text().split('\n'));
         //
