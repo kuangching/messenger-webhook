@@ -238,12 +238,8 @@ function callSendAPI(sender_psid, response) {
 function TrainSchedule(str_station,arrStation,recipientId){
     console.log('查火車');
     var data = {
-        FromCity: 9,
         FromStation: 1215,
-        FromStationName: 0,
-        ToCity: 18,
         ToStation: 1214,
-        ToStationName: 0,
         TrainClass: 2,
         searchdate: moment().format('YYYY-MM-DD'),
         FromTimeSelect: moment().format('HHmm'),
@@ -251,6 +247,19 @@ function TrainSchedule(str_station,arrStation,recipientId){
         Timetype: 1
     };
 
+    // var data = {
+    //     FromCity: 9,
+    //     FromStation: 1215,
+    //     FromStationName: 0,
+    //     ToCity: 18,
+    //     ToStation: 1214,
+    //     ToStationName: 0,
+    //     TrainClass: 2,
+    //     searchdate: moment().format('YYYY-MM-DD'),
+    //     FromTimeSelect: moment().format('HHmm'),
+    //     ToTimeSelect: 2359,
+    //     Timetype: 1
+    // };
     var options = {
         url: 'http://twtraffic.tra.gov.tw/twrail/TW_SearchResult.aspx',
         method: 'POST',
