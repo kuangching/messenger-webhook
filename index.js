@@ -254,10 +254,11 @@ function TrainSchedule(str_station,arrStation,sender_psid){
         $('td[class=SearchResult_Time]').each(function(i,elem){
             timeoftrain[i] = $(this).text();
         });
-        var response = {
-            "text": classname[0]+'  '+timeoftrain[0]+'出發'+timeoftrain[1]+'到達'
-        };
+
         for(var i = 0;i< timeoftrain.length ; i+=2){
+            var response = {
+                "text": classname[i]+'  '+timeoftrain[i]+'出發'+timeoftrain[i+1]+'到達'
+            };
             callSendAPI(sender_psid, response);
         }
 
