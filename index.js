@@ -239,7 +239,7 @@ function TrainSchedule(str_station,arrStation,sender_psid){
     console.log('查火車');
 
     var str_sta,arr_sta;
-    var response= {};
+    var response;
     var responsestr;
     str_sta = station_code(str_station);
     arr_sta = station_code(arrStation);
