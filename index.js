@@ -283,6 +283,7 @@ function TrainSchedule(str_station,arrStation,recipientId){
         //console.log($('span[id=classname]').text());
         $('span[id=classname]').each(function(i,elem){
             temp[i] = $(this).text();
+            console.log(temp[i]);
         });
         // $('#ResultGridView tbody tr td .SearchResult_TrainType').each(function(i,elem){
         //     temp.push($(this).text().split('\n'));
