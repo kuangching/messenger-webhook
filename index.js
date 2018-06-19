@@ -281,8 +281,10 @@ function TrainSchedule(str_station,arrStation,recipientId){
         var str_time;
         var arr_time;
         var time = $('td.SeachResult_Time');
+        console.log(time);
         var data = [];
         for (var i = 0; i< time.length; i+=2){
+            console.log(i);
             str_time = $($(time[i])).text();
             console.log(str_time);
             arr_time = $($(time[i+1])).text();
