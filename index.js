@@ -280,13 +280,14 @@ function TrainSchedule(str_station,arrStation,recipientId){
     let temp = []
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
-        $('#ResultGridView tbody tr').each(function(i,elem){
-            temp.push($(this).text().split('\n'));
-
-        });
-        for(var i = 0; i<1; i++){
-            console.log(temp[i]);
-        }
+        console.log($('#classname','tr .Grid_Row').text());
+        // $('#ResultGridView tbody tr td .SearchResult_TrainType').each(function(i,elem){
+        //     temp.push($(this).text().split('\n'));
+        //
+        // });
+        // for(var i = 0; i<1; i++){
+        //     console.log(temp[i]);
+        // }
 
     //     var train_class;
     //     var str_time;
