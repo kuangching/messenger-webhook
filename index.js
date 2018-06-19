@@ -257,7 +257,10 @@ function TrainSchedule(str_station,arrStation,sender_psid){
         var response = {
             "text": classname[0]+'  '+timeoftrain[0]+'出發'+timeoftrain[1]+'到達'
         };
-        callSendAPI(sender_psid, response);
+        for(var i = 0;i< timeoftrain.length ; i+=2){
+            callSendAPI(sender_psid, response);
+        }
+
 
     })
 }
