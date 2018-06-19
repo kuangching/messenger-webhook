@@ -284,7 +284,10 @@ function TrainSchedule(str_station,arrStation,recipientId){
             temp.push($(this).text().split('\n'));
 
         });
-        console.log(temp);
+        for(var i = 0; i<20; i++){
+            console.log(temp[i]);
+        }
+
     //     var train_class;
     //     var str_time;
     //     var arr_time;
