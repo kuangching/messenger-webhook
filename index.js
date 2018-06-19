@@ -235,41 +235,8 @@ function callSendAPI(sender_psid, response) {
 }
 
 //爬蟲
-function TrainSchedule(str_station,arrStation,recipientId){
+function TrainSchedule(str_station,arrStation,sender_psid){
     console.log('查火車');
-    // var data = {
-    //     searchtype: 0,
-    //     FromStation: 1215,
-    //     ToStation: 1214,
-    //     TrainClass: 2,
-    //     searchdate: moment().format('YYYY-MM-DD'),
-    //     FromTimeSelect:  moment().format('HHmm'),
-    //     ToTimeSelect: 2359,
-    //     Timetype: 1
-    // };
-
-    // var data = {
-    //     FromCity: 9,
-    //     FromStation: 1215,
-    //     FromStationName: 0,
-    //     ToCity: 18,
-    //     ToStation: 1214,
-    //     ToStationName: 0,
-    //     TrainClass: 2,
-    //     searchdate: moment().format('YYYY-MM-DD'),
-    //     FromTimeSelect: moment().format('HHmm'),
-    //     ToTimeSelect: 2359,
-    //     Timetype: 1
-    // };
-    // var options = {
-    //     url: 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx',
-    //     method: 'POST',
-    //     form: data,
-    // };
-    // request(options, (err, res, body)=>{
-    //     var dom = new JSDOM(body, { runScripts: "dangerously" });
-    //     console.log(dom.window.JSONData);
-    // });
 
     var str_sta,arr_sta;
     str_sta = station_code(str_station);
@@ -279,7 +246,6 @@ function TrainSchedule(str_station,arrStation,recipientId){
     console.log(url);
     let classname = [];
     let timeoftrain = [];
-    let usetime = [];
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
         $('span[id=classname]').each(function(i,elem){
@@ -289,36 +255,11 @@ function TrainSchedule(str_station,arrStation,recipientId){
         $('td[class=SearchResult_Time]').each(function(i,elem){
             timeoftrain[i] = $(this).text();
         });
-        $ = cheerio.load(body);
-        $('td[style=font-weight:normal;width:80px;]').each(function(i,elem){
-            usetime[i] = $(this).text();
-            console.log(usetime[i]);
-        });
-        // $('#ResultGridView tbody tr td .SearchResult_TrainType').each(function(i,elem){
-        //     temp.push($(this).text().split('\n'));
-        //
-        // });
-        // for(var i = 0; i<1; i++){
-        //     console.log(temp[i]);
-        // }
+        var response = {
+            "text": classname[0]+'  '+timeoftrain[0]+'出發'+timeoftrain[1]+'到達'
+        };
+        callSendAPI(sender_psid, response);
 
-    //     var train_class;
-    //     var str_time;
-    //     var arr_time;
-    //     var time = $('td.SeachResult_Time');
-    //     console.log(time);
-    //     var data = [];
-    //     for (var i = 0; i< time.length; i+=2){
-    //         console.log(i);
-    //         str_time = $($(time[i])).text();
-    //         console.log(str_time);
-    //         arr_time = $($(time[i+1])).text();
-    //         console.log(arr_time);
-    //         train_class = $($('span[id="xlassname"]')[i/2]).text();
-    //         data += train_class + ':' + str_time + '->' + arr_time +'\n';
-    //     }
-    //     callSendAPI(recipientId, data);
-    //     return 0;
     })
 }
 function station_code(station_name){
