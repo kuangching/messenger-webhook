@@ -277,8 +277,6 @@ function TrainSchedule(str_station,arrStation,recipientId){
     console.log(url);
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
-        console.log($);
-        console.log('1111111111111');
         console.log(body);
         var train_class;
         var str_time;
@@ -287,7 +285,9 @@ function TrainSchedule(str_station,arrStation,recipientId){
         var data = [];
         for (var i = 0; i< time.length; i+=2){
             str_time = $($(time[i])).text();
+            console.log(str_time);
             arr_time = $($(time[i+1])).text();
+            console.log(arr_time);
             train_class = $($('span[id="xlassname"]')[i/2]).text();
             data += train_class + ':' + str_time + '->' + arr_time +'\n';
         }
