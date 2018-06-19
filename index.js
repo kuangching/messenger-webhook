@@ -32,12 +32,14 @@ var apiaiapp = apiai('83c8cbe12da743ff823cadbd60df09ae', '4d68a32def6841d7b26813
 var cheerio = require('cheerio');
 var moment = require('moment');
 var momentz = require('moment-timezone');
-request('http://www.google.com/', function(err, resp, html){
-    if(!err){
-        const $ = cheerio.load(html);
-        console.log(html);
-    }
-});
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+// request('http://www.google.com/', function(err, resp, html){
+//     if(!err){
+//         const $ = cheerio.load(html);
+//         console.log(html);
+//     }
+// });
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -134,11 +136,10 @@ function handleMessage(sender_psid, received_message) {
                     case 'structure' :
                         callSendStructuredAPI(sender_psid);
                         break;
-                    case 'default' :
+                    default :
                         response = {
                             "text": `You sent the message: "${received_message.text}". Now send me an image!`
                         };
-                        break;
                 }
             } else if (received_message.attachments) {
                 response = {
@@ -236,28 +237,52 @@ function callSendAPI(sender_psid, response) {
 //爬蟲
 function TrainSchedule(str_station,arrStation,recipientId){
     console.log('查火車');
-    var str_sta,arrSta;
-    str_sta = station_code(str_station);
-    arrSta = station_code(arrStation);
-    var url = 'http://twtraffic.tra.gov.tw/twrail/TW_SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&fromstation='+str_sta+'&tostation='+arr_sta+'&trainclass=2&fromtime='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&totime=2359';
-    console.log(url);
-    request(url, (err, res, body)=>{
-        var $ = cheerio.load(body);
-        var train_class;
-        var str_time;
-        var arr_time;
-        var time = $('td.SeachResult_Time');
-        var data = [];
-        for (var i = 0; i< time.length; i+=2){
-            str_time = $($(time[i])).text();
-            arr_time = $($(time[i+1])).text();
-            train_class = $($('span[id="xlassname"]')[i/2]).text();
-            data += train_class + ':' + str_time + '->' + arr_time +'\n';
-        }
+    var data = {
+        FromCity: 9,
+        FromStation: 1239,
+        FromStationName: 0,
+        ToCity: 18,
+        ToStation: 5102,
+        ToStationName: 0,
+        TrainClass: 2,
+        searchdate: moment().format('YYYY-MM-DD'),
+        FromTimeSelect: moment().format('HHmm'),
+        ToTimeSelect: moment().add(1, 'hours').format('HHmm'),
+        Timetype: 1
+    };
 
-        callSendAPI(recipientId, data);
-        return 0;
-    })
+    var options = {
+        url: 'http://twtraffic.tra.gov.tw/twrail/TW_SearchResult.aspx',
+        method: 'POST',
+        form: data,
+    };
+    request(options, (err, res, body)=>{
+        var dom = new JSDOM(body, { runScripts: "dangerously" });
+        console.log(dom.window.JSONData);
+    });
+
+    // var str_sta,arr_sta;
+    // str_sta = station_code(str_station);
+    // arr_sta = station_code(arrStation);
+    // var url = 'http://twtraffic.tra.gov.tw/twrail/TW_SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&FromStation='+str_sta+'&ToStation='+arr_sta+'&TrainClass=2&FromTimeSelect='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&ToTimeSelect=2359';
+    // console.log(url);
+    // request(url, (err, res, body)=>{
+    //     var $ = cheerio.load(body);
+    //     var train_class;
+    //     var str_time;
+    //     var arr_time;
+    //     var time = $('td.SeachResult_Time');
+    //     var data = [];
+    //     for (var i = 0; i< time.length; i+=2){
+    //         str_time = $($(time[i])).text();
+    //         arr_time = $($(time[i+1])).text();
+    //         train_class = $($('span[id="xlassname"]')[i/2]).text();
+    //         data += train_class + ':' + str_time + '->' + arr_time +'\n';
+    //     }
+
+        // callSendAPI(recipientId, data);
+        // return 0;
+    // })
 }
 function station_code(station_name){
     switch (station_name) {
