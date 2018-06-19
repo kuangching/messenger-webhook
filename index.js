@@ -255,14 +255,15 @@ function TrainSchedule(str_station,arrStation,sender_psid){
         $('td[class=SearchResult_Time]').each(function(i,elem){
             timeoftrain[i] = $(this).text();
         });
+        console.log('good');
 
-        for(var i = 0;i< timeoftrain.length ; i+=2){
-            response += {
-                "text": classname[i]+'  '+timeoftrain[i]+'出發'+timeoftrain[i+1]+'到達\n'
-            };
-
-        }
-        console.log(response);
+        // for(var i = 0;i< timeoftrain.length ; i+=2){
+        //     response += {
+        //         "text": classname[i]+'  '+timeoftrain[i]+'出發'+timeoftrain[i+1]+'到達\n'
+        //     };
+        //
+        // }
+        // console.log(response);
         //callSendAPI(sender_psid, response);
 
     })
