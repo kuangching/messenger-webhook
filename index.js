@@ -102,7 +102,9 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
 
     let response;
-    var request = dialogdlow.textReqest(received_message.text, {sessionId: sender_psid});
+    let strStation;
+    let arrStation;
+    var request = apiaiapp.textRequest(received_message.text, {sessionId: sender_psid});
     request.on('response', function(response){
         if(response.result.action == "train"){
             strStation = response.result.parameters.start_station;
@@ -139,7 +141,7 @@ function handleMessage(sender_psid, received_message) {
         }
     });
     request.end();
-    
+
 
 }
 
