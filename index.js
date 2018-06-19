@@ -277,14 +277,17 @@ function TrainSchedule(str_station,arrStation,recipientId){
     var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate=2019/10/28&fromstation=1319&tostation=1215&trainclass=2&timetype=undefined&fromtime=0000&totime=2359';
     // var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&fromstation='+str_sta+'&tostation='+arr_sta+'&trainclass=2&timetype=undefined&fromtime='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&totime=2359';
     console.log(url);
-    let temp = []
+    let classname = [];
+    let timeoftrain = [];
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
-        //console.log($('span[id=classname]').text());
         $('span[id=classname]').each(function(i,elem){
-            temp[i] = $(this).text();
-            console.log(temp[i]);
+            classname[i] = $(this).text();
         });
+        $('td[class=SearchResult_Time]').each(function(i,elem){
+            timeoftrain[i] = $(this).text();
+            console.log(timeoftrain[i]);
+        })
         // $('#ResultGridView tbody tr td .SearchResult_TrainType').each(function(i,elem){
         //     temp.push($(this).text().split('\n'));
         //
