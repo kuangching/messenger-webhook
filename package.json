@@ -1,0 +1,19 @@
+{
+  "name": "messenger-webhook",
+  "version": "1.0.0",
+  "description": "facebookbot",
+  "main": "index.js",
+  "scripts": {
+    "test": "demo",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "facebook"
+  ],
+  "author": "john",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
