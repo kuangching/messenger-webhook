@@ -239,7 +239,8 @@ function TrainSchedule(str_station,arrStation,sender_psid){
     console.log('查火車');
 
     var str_sta,arr_sta;
-    var response;
+    var response= {};
+    var responsestr;
     str_sta = station_code(str_station);
     arr_sta = station_code(arrStation);
     var url = 'http://twtraffic.tra.gov.tw/twrail/SearchResult.aspx?searchtype=0&searchdate='+ moment().tz('Asia/Taipei').format('YYYY/MM/DD').toString() +'&fromstation='+str_sta+'&tostation='+arr_sta+'&trainclass=2&timetype=undefined&fromtime='+ moment().tz('Asia/Taipei').format('HHmm').toString() + '&totime=2359';
@@ -255,16 +256,14 @@ function TrainSchedule(str_station,arrStation,sender_psid){
         $('td[class=SearchResult_Time]').each(function(i,elem){
             timeoftrain[i] = $(this).text();
         });
-        console.log('good');
 
-        // for(var i = 0;i< timeoftrain.length ; i+=2){
-        //     response += {
-        //         "text": classname[i]+'  '+timeoftrain[i]+'出發'+timeoftrain[i+1]+'到達\n'
-        //     };
-        //
-        // }
-        // console.log(response);
-        //callSendAPI(sender_psid, response);
+        for(var i = 0;i< timeoftrain.length ; i+=2){
+            responsestr = responsestr + classname[i/2]+'  '+timeoftrain[i]+'出發'+timeoftrain[i+1]+'到達\n'
+        }
+        response = {
+            "text": responsestr
+        };
+        callSendAPI(sender_psid, response);
 
     })
 }
