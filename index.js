@@ -277,6 +277,9 @@ function TrainSchedule(str_station,arrStation,recipientId){
     console.log(url);
     request(url, (err, res, body)=>{
         var $ = cheerio.load(body);
+        console.log($);
+        console.log('1111111111111');
+        console.log(body);
         var train_class;
         var str_time;
         var arr_time;
